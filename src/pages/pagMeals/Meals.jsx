@@ -27,6 +27,18 @@ margin-top: 2rem;
 `;
 
 
+const ConteineMeals = styled.div`
+`;
+
+const ConteineMeals2 = styled.div`
+display: flex;
+align-items: center;
+justify-content: center;
+width: 1500px;
+margin: auto;
+`;
+
+
 
 const Meals =()=>{
 const [ingredientanswer, setingredientanswer] = useState('')
@@ -64,7 +76,8 @@ const [strIngredient, setstrIngredient] = useState('')
     <>
   
   <MainSection>
-    
+    <ConteineMeals2>
+<ConteineMeals>
     <Titulo>Receitas com {currentName}</Titulo>
 
 <BoxrecipeMeals>
@@ -78,7 +91,8 @@ const [strIngredient, setstrIngredient] = useState('')
   />
 ))}
 </BoxrecipeMeals>
-
+</ConteineMeals>
+</ConteineMeals2>
   </MainSection>
     </>
     )

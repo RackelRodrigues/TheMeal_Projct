@@ -99,9 +99,23 @@ const Ingredients = ()=>{
 
   const [searchInput, setSearchInput] = useState('');
 
-  const handleresponse = (event) => {
-    setSearchInput(event.target.value);
-    console.log(searchInput);
+  const handleresponse = async (event) => {
+    const searchTerm = event.target.value.toLowerCase();
+    setSearchInput(searchTerm);
+  
+    try {
+      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchTerm}`, {
+        method: 'GET',
+      });
+  
+      const data = await response.json();
+      const ingredientesData = data.meals || [];
+  
+      setFilteredIngredientes(ingredientesData);
+    } catch (error) {
+      console.error('Erro ao buscar a lista', error);
+      setFilteredIngredientes([]); // Se ocorrer um erro, limpe a lista filtrada
+    }
   };
 
  
@@ -117,7 +131,7 @@ const Ingredients = ()=>{
 <Containerinput>
   <Input 
    placeholder='search for ingredients'
-   onChange={(event) => handleresponse(event.target.value)} 
+   onChange={(ev) => handleresponse(ev.target.value)} 
    value={searchInput} 
   />
 </Containerinput>
@@ -135,7 +149,10 @@ const Ingredients = ()=>{
         ) : (
           <P>Nenhum ingrediente encontrado</P>
         )}
+
+        
 </Boxoptions>
+
 </Div>
 </DivSection>
 </MainSection>
